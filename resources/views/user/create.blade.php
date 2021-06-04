@@ -19,11 +19,15 @@
                     </ol>
                 </div>
             @endif
-            <form action="{{route("user.store")}}" method="post">
+            <form action="{{route("user.store")}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="name">Fullname : </label>
                     <input required value="{{old(\App\Models\User::NAME)}}" type="text" class="form-control" name="{{\App\Models\User::NAME}}">
+                </div>
+                <div class="form-group">
+                    <label for="{{\App\Models\User::IMAGE}}">Profile</label>
+                    <input name="{{\App\Models\User::IMAGE}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE}}">
                 </div>
                 <div class="form-group">
                     <label for="username">Username : </label>

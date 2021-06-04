@@ -10,23 +10,29 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
 
     const ID = "id",
+        STATE_ID="state_id",
+        CITY_ID="city_id",
         NAME = "name",
         EMAIL = "email",
         PASSWORD = "password",
-        USERNAME = "username";
+        USERNAME = "username",
+        IMAGE = "image";
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-       self::NAME,
-       self::EMAIL,
-       self::PASSWORD,
-       self::USERNAME,
+        self::STATE_ID,
+        self::CITY_ID,
+        self::NAME,
+        self::EMAIL,
+        self::PASSWORD,
+        self::USERNAME,
+        self::IMAGE,
     ];
 
     /**

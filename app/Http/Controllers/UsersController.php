@@ -39,11 +39,18 @@ class UsersController extends Controller
             User::NAME => ["required", "string"],
             User::EMAIL => ["required", "email", "unique:users"],
             User::USERNAME => ["required", "unique:users"],
-            User::PASSWORD => ["required", "min:8"]
+            User::PASSWORD => ["required", "min:8"],
+            User::IMAGE.".*" => ["nullable", "image", "max:2024"]
         ]);
-        $validate[User::PASSWORD] = bcrypt($validate[User::PASSWORD]);
-        User::create($validate);
 
+        $validate[User::PASSWORD] = bcrypt($validate[User::PASSWORD]);
+
+        if ($request->hasFile(User::IMAGE)) {
+            $imageName = uniqid() . "." . $request->file(User::IMAGE)->getClientOriginalExtension();
+            $request->file(User::IMAGE)->move(public_path("upload/"), $imageName);
+            $validate[User::IMAGE] = $imageName;
+        }
+        User::create($validate);
         return back()->with("msg", "User Created successfully!");
     }
 
@@ -88,7 +95,7 @@ class UsersController extends Controller
 
         $user->update($validate);
 
-        return back()->with("msg","User Updated successfully");
+        return back()->with("msg", "User Updated successfully");
     }
 
     /**
@@ -98,6 +105,6 @@ class UsersController extends Controller
     public function destroy(User $user): RedirectResponse
     {
         $user->delete();
-        return back()->with("msg","User deleted successfully");
+        return back()->with("msg", "User deleted successfully");
     }
 }
