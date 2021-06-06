@@ -40,9 +40,9 @@
 
 *,
 *::before,
-*::after {
-  box-sizing: border-box;
-}
+/**::after {*/
+/*  box-sizing: border-box;*/
+/*}*/
 
 html {
   font-family: sans-serif;
@@ -62,7 +62,6 @@ body {
   font-weight: 400;
   line-height: 1.6;
   color: #212529;
-  text-align: left;
   background-color: #f8fafc;
 }
 

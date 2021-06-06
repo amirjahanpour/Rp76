@@ -18,6 +18,10 @@ class AddSoftdeleteToUsers extends Migration
             $table->string("image",50)->after("remember_token")->nullable();
             $table->bigInteger("state_id")->after("id")->nullable();
             $table->bigInteger("city_id")->after("state_id")->nullable();
+            $table->integer("election")->after("city_id")->nullable();
+            $table->longText("resume")->after("election")->nullable();
+            $table->longText("phone")->after("resume")->nullable();
+            $table->longText("mobile")->after("phone")->nullable();
         });
     }
 

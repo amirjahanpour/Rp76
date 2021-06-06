@@ -12,4 +12,9 @@ class State extends Model
     const NAME="name";
 
     protected $fillable=[self::NAME];
+
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
 }

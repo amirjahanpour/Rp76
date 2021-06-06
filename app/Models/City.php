@@ -11,4 +11,9 @@ class City extends Model
 
     const STATE_ID = "state_id",
         NAME = "name";
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
 }
