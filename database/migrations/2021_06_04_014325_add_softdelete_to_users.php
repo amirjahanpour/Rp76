@@ -22,6 +22,7 @@ class AddSoftdeleteToUsers extends Migration
             $table->longText("resume")->after("election")->nullable();
             $table->longText("phone")->after("resume")->nullable();
             $table->longText("mobile")->after("phone")->nullable();
+            $table->string("obligation")->after("mobile")->nullable();
         });
     }
 

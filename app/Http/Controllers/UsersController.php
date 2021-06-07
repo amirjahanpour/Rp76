@@ -42,7 +42,7 @@ class UsersController extends Controller
     {
         $validate = $request->validate([
             User::NAME => ["required", "string"],
-            User::EMAIL => ["required", "email", "unique:users"],
+            User::EMAIL => ["nullable","email"],
             User::USERNAME => ["required", "unique:users"],
             User::PASSWORD => ["required", "min:8"],
             User::STATE_ID => ["nullable"],
@@ -50,7 +50,8 @@ class UsersController extends Controller
             User::PHONE => ["nullable"],
             User::MOBILE => ["nullable"],
             User::RESUME => ["nullable"],
-            User::ELECTION => ["nullable"],
+            User::ELECTION => ["required"],
+            User::OBLIGATION => ["required"],
             User::IMAGE.".*" => ["nullable", "image", "max:2024"]
         ]);
 
@@ -62,7 +63,7 @@ class UsersController extends Controller
             $validate[User::IMAGE] = $imageName;
         }
         User::create($validate);
-        return back()->with("msg", "User Created successfully!");
+        return back()->with("msg", "ثبت با موفقیت انجام داده شد.");
     }
 
     /**
@@ -99,7 +100,7 @@ class UsersController extends Controller
     {
         $validate = $request->validate([
             User::NAME => ["required", "string"],
-            User::EMAIL => ["required", "email", "unique:users,id," . $user->id],
+            User::EMAIL => ["nullable", "email", "unique:users,id," . $user->id],
             User::USERNAME => ["required", "unique:users,id," . $user->id],
             User::PASSWORD => ["nullable", "min:8"],
             User::STATE_ID => ["nullable"],
@@ -108,6 +109,7 @@ class UsersController extends Controller
             User::MOBILE => ["nullable"],
             User::RESUME => ["nullable"],
             User::ELECTION => ["nullable"],
+            User::OBLIGATION => ["required"],
             User::IMAGE.".*" => ["nullable", "image", "max:2024"]
         ]);
         if ($request->hasFile(User::IMAGE)) {
@@ -123,7 +125,7 @@ class UsersController extends Controller
 
         $user->update($validate);
 
-        return back()->with("msg", "User Updated successfully");
+        return back()->with("msg", "ویرایش با موفقیت انجام شد.");
     }
 
     /**
@@ -133,6 +135,6 @@ class UsersController extends Controller
     public function destroy(User $user): RedirectResponse
     {
         $user->delete();
-        return back()->with("msg", "User deleted successfully");
+        return back()->with("msg", "کاربر غیرفعال شد.");
     }
 }

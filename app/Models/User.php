@@ -23,7 +23,9 @@ class User extends Authenticatable
         EMAIL = "email",
         PASSWORD = "password",
         USERNAME = "username",
-        IMAGE = "image";
+        IMAGE = "image",
+        OBLIGATION = "obligation",
+        IS_ADMIN = "is_admin";
 
     const ELECTION_LIST = [
         "نام انتخابات",
@@ -49,6 +51,8 @@ class User extends Authenticatable
         self::PASSWORD,
         self::USERNAME,
         self::IMAGE,
+        self::OBLIGATION,
+        self::IS_ADMIN,
     ];
 
     /**

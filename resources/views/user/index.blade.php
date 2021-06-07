@@ -10,7 +10,13 @@
                     {{session()->get("msg")}}
                 </div>
             @endif
-            <a href="{{route("user.create")}}" class="btn btn-secondary">اضافه کردن کربر</a>
+            <div class="form-inline">
+                <form action="{{url('logout')}}" method="post">
+                    <a href="{{route("user.create")}}" class="btn btn-secondary">اضافه کردن کاربر</a>
+                    @csrf
+                    <input CLASS="btn btn-secondary" type="submit" value="خروج">
+                </form>
+            </div>
         </div>
     </div>
     <div class="card col-md-12">
@@ -37,9 +43,27 @@
                         <td>{{$key+1}}</td>
                         <td><img src="{{asset('/upload/'.$user->image)}}" style="width: 6rem"></td>
                         <td>{{$user->name}}</td>
-                        <td>{{@\App\Models\User::ELECTION_LIST[$user->election]}}</td>
-                        <td>{{@$user->state->name}}</td>
-                        <td>{{@$user->city->name}}</td>
+                        <td>
+                            @if(@\App\Models\User::ELECTION_LIST[$user->election] === 'نام انتخابات')
+                            {{'هیچکدام'}}
+                            @else
+                                {{@\App\Models\User::ELECTION_LIST[$user->election]}}
+                            @endif
+                        </td>
+                        <td>
+                            @if(@$user->state->name === null)
+                                {{'هیچکدام'}}
+                            @else
+                            {{@$user->state->name}}
+                            @endif
+                        </td>
+                        <td>
+                            @if(@$user->city->name === null)
+                                {{'هیچکدام'}}
+                            @else
+                                {{@$user->city->name}}
+                            @endif
+                        </td>
                         <td>{{$user->phone}}</td>
                         <td>{{$user->mobile}}</td>
                         <td>{{$user->username}}</td>

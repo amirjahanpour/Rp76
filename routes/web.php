@@ -16,12 +16,12 @@ use App\Http\Controllers\NewApiController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [UsersController::class, 'index'])->name('home');
 
 Route::resource("user", UsersController::class)->middleware("auth");
 
