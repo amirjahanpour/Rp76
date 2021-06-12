@@ -76,9 +76,27 @@
                         </select>
                     </div>
                 </dev>
-                <div class="form-group">
-                    <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE}}">ارسال عکس</label>
-                    <input name="{{\App\Models\User::IMAGE}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE}}">
+                <div>
+                    <div class="form-group">
+                        <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE}}">ارسال عکس شماره یک</label>
+                        <input name="{{\App\Models\User::IMAGE}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE}}">
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE_TWO}}">ارسال عکس شماره دو</label>
+                        <input name="{{\App\Models\User::IMAGE_TWO}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE_TWO}}">
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE_THREE}}">ارسال عکس شماره سه</label>
+                        <input name="{{\App\Models\User::IMAGE_THREE}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE_THREE}}">
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE_FOUR}}">ارسال عکس شماره چهار</label>
+                        <input name="{{\App\Models\User::IMAGE_FOUR}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE_FOUR}}">
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE_FIVE}}">ارسال عکس شماره پنج</label>
+                        <input name="{{\App\Models\User::IMAGE_FIVE}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE_FIVE}}">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="username" class="font-weight-bold">نام کاربری</label>

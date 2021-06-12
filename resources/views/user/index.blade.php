@@ -41,25 +41,53 @@
                 @foreach($users as $key=>$user)
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td><img src="{{asset('/upload/'.$user->image)}}" style="width: 6rem"></td>
+                        <td>
+                            <div id="carouselExampleSlidesOnly" class="carousel" data-interval="3000" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-50 img-fluid" src="{{asset('/upload/'.$user->image)}}" alt="First slide">
+                                    </div>
+                                    @if($user->image_two != 'img.png')
+                                    <div class="carousel-item">
+                                        <img class="d-block w-50 img-fluid" src="{{asset('/upload/'.$user->image_two)}}" alt="Second slide">
+                                    </div>
+                                    @endif
+                                    @if($user->image_three != 'img.png')
+                                    <div class="carousel-item">
+                                        <img class="d-block w-50 img-fluid" src="{{asset('/upload/'.$user->image_three)}}" alt="Third slide">
+                                    </div>
+                                    @endif
+                                    @if($user->image_four != 'img.png')
+                                    <div class="carousel-item">
+                                        <img class="d-block w-50" src="{{asset('/upload/'.$user->image_four)}}" alt="Third slide">
+                                    </div>
+                                    @endif
+                                    @if($user->image_five != 'img.png')
+                                    <div class="carousel-item">
+                                        <img class="d-block w-50 img-fluid" src="{{asset('/upload/'.$user->image_five)}}" alt="Third slide">
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </td>
                         <td>{{$user->name}}</td>
                         <td>
                             @if(@\App\Models\User::ELECTION_LIST[$user->election] === 'نام انتخابات')
-                            {{'هیچکدام'}}
+                            {{'___'}}
                             @else
                                 {{@\App\Models\User::ELECTION_LIST[$user->election]}}
                             @endif
                         </td>
                         <td>
                             @if(@$user->state->name === null)
-                                {{'هیچکدام'}}
+                                {{'___'}}
                             @else
                             {{@$user->state->name}}
                             @endif
                         </td>
                         <td>
                             @if(@$user->city->name === null)
-                                {{'هیچکدام'}}
+                                {{'___'}}
                             @else
                                 {{@$user->city->name}}
                             @endif
@@ -70,7 +98,7 @@
                         <td ><div style="width: 200px;height: 120px;overflow: auto;">{{$user->resume}}</div></td>
                         <td>
                             <form action="{{route("user.destroy",$user->id)}}" method="post" class="form-inline">
-                                <a href="{{route("user.edit",$user->id)}}" class="btn btn-warning">ویرایش</a>
+                                <a href="{{route("user.edit",$user->id)}}" style="padding: 0.4rem;" class="btn btn-warning">ویرایش</a>
                                 @if(auth()->id() != $user->id)
                                     @csrf
                                     @method("delete")

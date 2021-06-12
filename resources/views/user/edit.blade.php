@@ -3,19 +3,19 @@
 @section("ex-title","Create new user")
 
 @section("body")
-    @if(Illuminate\Support\Facades\Auth::user()->is_admin==1)
     <div class="card col-md-12">
         <div class="card-body">
             <div class="form-inline">
                 <form action="{{url('logout')}}" method="post">
+                    @if(Illuminate\Support\Facades\Auth::user()->is_admin==1)
                     <a href="{{route("user.index")}}" class="btn btn-secondary">مشاهده کاربر</a>
+                    @endif
                     @csrf
                     <input CLASS="btn btn-secondary" type="submit" value="خروج">
                 </form>
             </div>
         </div>
     </div>
-    @endif
     <div class="card col-md-12">
         <div class="card-body">
             @if(session()->has("msg"))
@@ -35,7 +35,37 @@
         </div>
         <div>
             <p class="font-weight-bold">عکس قبلی شما :</p>
-            <img src="{{asset('/upload/'.$user->image)}}" style="width: 10rem">
+            <div>
+                        <div id="carouselExampleSlidesOnly" class="carousel" data-interval="3000" data-ride="carousel">
+                            <div class="carousel-inner">
+                                @if($user->image != 'img.png')
+                                <div class="carousel-item active img-fluid">
+                                    <img class="d-block w-25" src50{{asset('/upload/'.$user->image)}}" alt="First slide">
+                                </div>
+                                @endif
+                                    @if($user->image_two != 'img.png')
+                                <div class="carousel-item img-fluid">
+                                    <img class="d-block w-50" src="{{asset('/upload/'.$user->image_two)}}" alt="Second slide">
+                                </div>
+                                    @endif
+                                    @if($user->image_three != 'img.png')
+                                <div class="carousel-item img-fluid">
+                                    <img class="d-block w-50" src="{{asset('/upload/'.$user->image_three)}}" alt="Third slide">
+                                </div>
+                                    @endif
+                                    @if($user->image_four != 'img.png')
+                                <div class="carousel-item img-fluid">
+                                    <img class="d-block w-50" src="{{asset('/upload/'.$user->image_four)}}" alt="Third slide">
+                                </div>
+                                    @endif
+                                    @if($user->image_five != 'img.png')
+                                <div class="carousel-item img-fluid">
+                                    <img class="d-block w-50" src="{{asset('/upload/'.$user->image_five)}}" alt="Third slide">
+                                </div>
+                                    @endif
+                            </div>
+                        </div>
+            </div>
         </div>
         <form action="{{route("user.update",$user->id)}}" method="post" enctype="multipart/form-data">
             @csrf
@@ -62,7 +92,7 @@
                     <label for="mobile" class="font-weight-bold">تلفن همراه</label>
                     <input value="{{old(\App\Models\User::MOBILE,$user->mobile)}}" type="text" class="form-control" name="{{\App\Models\User::MOBILE}}">
                 </div>
-                <dev>
+                <div>
                      <label for="name" class="font-weight-bold">لطفا استان و شهر خود را انتخاب کنید</label>
                         <div>
                             <select name="{{\App\Models\User::STATE_ID}}" class="form-control form-control-lg">
@@ -80,11 +110,28 @@
                                 @endforeach
                             </select>
                         </div>
-                    </dev>
-
+                </div>
+                <div>
                     <div class="form-group">
-                    <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE}}">ارسال عکس</label>
-                    <input name="{{\App\Models\User::IMAGE}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE}}">
+                        <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE}}">ارسال عکس شماره یک</label>
+                        <input name="{{\App\Models\User::IMAGE}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE}}">
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE_TWO}}">ارسال عکس شماره دو</label>
+                        <input name="{{\App\Models\User::IMAGE_TWO}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE_TWO}}">
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE_THREE}}">ارسال عکس شماره سه</label>
+                        <input name="{{\App\Models\User::IMAGE_THREE}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE_THREE}}">
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE_FOUR}}">ارسال عکس شماره چهار</label>
+                        <input name="{{\App\Models\User::IMAGE_FOUR}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE_FOUR}}">
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-top: 12px;" class="font-weight-bold" for="{{\App\Models\User::IMAGE_FIVE}}">ارسال عکس شماره پنج</label>
+                        <input name="{{\App\Models\User::IMAGE_FIVE}}" type="file" class="form-control" id="{{\App\Models\User::IMAGE_FIVE}}">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="username" class="font-weight-bold">نام کاربری</label>

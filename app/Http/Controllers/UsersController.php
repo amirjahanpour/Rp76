@@ -20,9 +20,10 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::with("city","state")->orderby("id", "DESC")->paginate();
+        $users = User::with("city","state")->where([['is_admin', 0]])->orderby("id", "DESC")->paginate();
         return view("user.index", compact("users"));
     }
+
 
     /**
      * @return Application|Factory|View
@@ -47,21 +48,44 @@ class UsersController extends Controller
             User::PASSWORD => ["required", "min:8"],
             User::STATE_ID => ["nullable"],
             User::CITY_ID => ["nullable"],
-            User::PHONE => ["nullable"],
+            User::PHONE => ["nullable",],
             User::MOBILE => ["nullable"],
             User::RESUME => ["nullable"],
             User::ELECTION => ["required"],
             User::OBLIGATION => ["required"],
-            User::IMAGE.".*" => ["nullable", "image", "max:2024"]
+            User::IMAGE.".*" => ["nullable", "image", "max:2024"],
+            User::IMAGE_TWO.".*" => ["nullable", "image", "max:2024"],
+            User::IMAGE_THREE.".*" => ["nullable", "image", "max:2024"],
+            User::IMAGE_FOUR.".*" => ["nullable", "image", "max:2024"],
+            User::IMAGE_FIVE.".*" => ["nullable", "image", "max:2024"],
         ]);
-
         $validate[User::PASSWORD] = bcrypt($validate[User::PASSWORD]);
-
         if ($request->hasFile(User::IMAGE)) {
             $imageName = uniqid() . "." . $request->file(User::IMAGE)->getClientOriginalExtension();
             $request->file(User::IMAGE)->move(public_path("upload/"), $imageName);
             $validate[User::IMAGE] = $imageName;
         }
+        if ($request->hasFile(User::IMAGE_TWO)) {
+            $imageName = uniqid() . "." . $request->file(User::IMAGE_TWO)->getClientOriginalExtension();
+            $request->file(User::IMAGE_TWO)->move(public_path("upload/"), $imageName);
+            $validate[User::IMAGE_TWO] = $imageName;
+        }
+        if ($request->hasFile(User::IMAGE_THREE)) {
+            $imageName = uniqid() . "." . $request->file(User::IMAGE_THREE)->getClientOriginalExtension();
+            $request->file(User::IMAGE_THREE)->move(public_path("upload/"), $imageName);
+            $validate[User::IMAGE_THREE] = $imageName;
+        }
+        if ($request->hasFile(User::IMAGE_FOUR)) {
+            $imageName = uniqid() . "." . $request->file(User::IMAGE_FOUR)->getClientOriginalExtension();
+            $request->file(User::IMAGE_FOUR)->move(public_path("upload/"), $imageName);
+            $validate[User::IMAGE_FOUR] = $imageName;
+        }
+        if ($request->hasFile(User::IMAGE_FIVE)) {
+            $imageName = uniqid() . "." . $request->file(User::IMAGE_FIVE)->getClientOriginalExtension();
+            $request->file(User::IMAGE_FIVE)->move(public_path("upload/"), $imageName);
+            $validate[User::IMAGE_FIVE] = $imageName;
+        }
+
         User::create($validate);
         return back()->with("msg", "ثبت با موفقیت انجام داده شد.");
     }
@@ -87,8 +111,9 @@ class UsersController extends Controller
                 abort(403);
 
         $city_select = City::all();
+        $image = City::all();
         $state_select = State::all();
-        return view("user.edit",compact("user"),compact("city_select" , "state_select"));
+        return view("user.edit",compact("user","city_select" , "state_select","image"));
     }
 
     /**
@@ -110,12 +135,36 @@ class UsersController extends Controller
             User::RESUME => ["nullable"],
             User::ELECTION => ["nullable"],
             User::OBLIGATION => ["required"],
-            User::IMAGE.".*" => ["nullable", "image", "max:2024"]
+            User::IMAGE.".*" => ["nullable", "image", "max:2024"],
+            User::IMAGE_TWO.".*" => ["nullable", "image", "max:2024"],
+            User::IMAGE_THREE.".*" => ["nullable", "image", "max:2024"],
+            User::IMAGE_FOUR.".*" => ["nullable", "image", "max:2024"],
+            User::IMAGE_FIVE.".*" => ["nullable", "image", "max:2024"],
         ]);
         if ($request->hasFile(User::IMAGE)) {
             $imageName = uniqid() . "." . $request->file(User::IMAGE)->getClientOriginalExtension();
             $request->file(User::IMAGE)->move(public_path("upload/"), $imageName);
             $validate[User::IMAGE] = $imageName;
+        }
+        if ($request->hasFile(User::IMAGE_TWO)) {
+            $imageName = uniqid() . "." . $request->file(User::IMAGE_TWO)->getClientOriginalExtension();
+            $request->file(User::IMAGE_TWO)->move(public_path("upload/"), $imageName);
+            $validate[User::IMAGE_TWO] = $imageName;
+        }
+        if ($request->hasFile(User::IMAGE_THREE)) {
+            $imageName = uniqid() . "." . $request->file(User::IMAGE_THREE)->getClientOriginalExtension();
+            $request->file(User::IMAGE_THREE)->move(public_path("upload/"), $imageName);
+            $validate[User::IMAGE_THREE] = $imageName;
+        }
+        if ($request->hasFile(User::IMAGE_FOUR)) {
+            $imageName = uniqid() . "." . $request->file(User::IMAGE_FOUR)->getClientOriginalExtension();
+            $request->file(User::IMAGE_FOUR)->move(public_path("upload/"), $imageName);
+            $validate[User::IMAGE_FOUR] = $imageName;
+        }
+        if ($request->hasFile(User::IMAGE_FIVE)) {
+            $imageName = uniqid() . "." . $request->file(User::IMAGE_FIVE)->getClientOriginalExtension();
+            $request->file(User::IMAGE_FIVE)->move(public_path("upload/"), $imageName);
+            $validate[User::IMAGE_FIVE] = $imageName;
         }
 
         if (empty($validate[User::PASSWORD]))
@@ -124,7 +173,6 @@ class UsersController extends Controller
             $validate[User::PASSWORD] = bcrypt($validate[User::PASSWORD]);
 
         $user->update($validate);
-
         return back()->with("msg", "ویرایش با موفقیت انجام شد.");
     }
 
